@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Candidatos</title>
+</head>
+<body>
+    <h1>Formulario de Candidatos</h1>
+    <form id="form-candidato">
+        <label for="nombre">Nombre Completo:</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" name="correo" required><br>
+
+        <label for="institucion">Institución Educativa:</label>
+        <input type="text" id="institucion" name="institucion" required><br>
+
+        <label for="carrera">Carrera Cursada:</label>
+        <input type="text" id="carrera" name="carrera" required><br>
+
+        <label for="promedio">Promedio Académico:</label>
+        <input type="number" id="promedio" name="promedio" step="0.01" min="0" max="10" required><br>
+
+        <label for="habilidades">Habilidades y Experiencia Laboral (opcional):</label>
+        <textarea id="habilidades" name="habilidades"></textarea><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+    <br>
+    <button id="descargar-reporte">Descargar Reporte</button>
+
+    <script>
+        document.getElementById('form-candidato').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const candidato = {
+                nombre: document.getElementById('nombre').value,
+                correo: document.getElementById('correo').value,
+                institucion: document.getElementById('institucion').value,
+                carrera: document.getElementById('carrera').value,
+                promedio: document.getElementById('promedio').value,
+                habilidades: document.getElementById('habilidades').value.split(',')
+            };
+
+            fetch('/candidatos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(candidato)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.errors) {
+                    console.log(data.errors);
+                } else {
+                    alert('Candidato creado exitosamente');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('descargar-reporte').addEventListener('click', function() {
+            window.location.href = '/descargar-reporte';
+        });
+    </script>
+</body>
+</html>

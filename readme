@@ -1,0 +1,8 @@
+La interfaz se creo en un repositorio directo de git hub para su visualización
+El mismo por el momento se encuentra de maneral con el http://localhost:3000/formulario-candidato
+Para activarlo debe ingresar a la terminal de tu dispositvo una vez realizado el merge de git hub
+Debe posicionarse sobre repositorioSistemHuman e indica npm install
+Posterior a ello indicar npm start y figurara el mensaje Formulario para idols activados
+Podrá proceder con la carga de documentación como nombre, correo, instutición,etc.
+Al remitir enviar, procederá la carga de datos en el candidatos.json
+Para descargar el pdf, tiene la pestaña descargar reporte
